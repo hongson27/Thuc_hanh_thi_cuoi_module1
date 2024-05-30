@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <style>-->
+<!--        th, tr ,td {-->
+<!--            border: 1px solid black;-->
+<!--        }-->
+<!--    </style>-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+</head>
+<body>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th style="text-align: center; font-size: 50px" colspan="6">SỔ TIẾT KIỆM</th>
+        </tr>
+    <tr>
+        <th>Mã sổ</th>
+        <th>Loại sổ</th>
+        <th>Tên sổ</th>
+        <th>CMND</th>
+        <th>Ngày mở</th>
+        <th>Số tiền</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+
+    </tbody>
+</table>
+<br>
+<div>
+    <button  class="btn btn-success" onclick = "addd()">Thêm</button>
+    <button  class="btn btn-success" onclick = "deletee()">Xóa</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script>
+    class SoTietKiem {
+        constructor(id, type, name, idCard, date, money) {
+            this.id = id;
+            this.type = type;
+            this.name = name;
+            this.idCard = idCard;
+            this.date = date;
+            this.money = money;
+        }
+        getId() { return this.id; }
+        getType() { return this.type}
+        getName() { return this.name}
+        getIdCard() { return this.idCard}
+        getDate() { return this.date}
+        getMoney() { return this.money}
+
+    }
+
+
+    function list(arr) {
+        let txt='';
+        for (let i=0; i<arr.length; i++) {
+            txt += '<tr>';
+            txt += '<td>' + arr[i].getId() + '</td>';
+            txt += '<td>' + arr[i].getType() + '</td>';
+            txt += '<td>' + arr[i].getName() +'</td>';
+            txt += '<td>' + arr[i].getIdCard() + '</td>';
+            txt += '<td>' + arr[i].getDate() + '</td>';
+            txt += '<td>' + arr[i].getMoney() + '</td>';
+            txt += '<td></td>';
+            txt += '</tr>';
+        }
+        document.getElementById('tbody').innerHTML = txt;
+    }
+
+
+    let soTietKiem = new SoTietKiem(81275, 'Có kỳ hạn', 'Vietinbank', 8686868686, '1/1/2022', 1000);
+    let soTietKiem1 = new SoTietKiem(27069, 'Có kỳ hạn', 'Techcombak', 6969696969, '1/1/2023', 2000);
+    let soTietKiem2 = new SoTietKiem(14096, 'Có kỳ hạn', 'MB bank', 7979797979, '1/1/2024', 3000);
+    let arr = [soTietKiem, soTietKiem1, soTietKiem2];
+    list(arr);
+
+
+function addd(){
+    let id = prompt('Nhập mã sổ:');
+    if (id.length <= 5) {
+        let id1 = parseInt(id);
+        for (let i = 0; i <arr.length; i++) {
+            if (id1 === arr[i].getId()) {
+                alert('Mã sổ đã tồn tại');
+                return;
+            }
+     }
+    } else {
+        alert('Mã sổ phải là số và không dài quá 5 kí tự');
+        return;
+    }
+    let type = prompt('Nhập loại sổ:');
+    let name = prompt('Nhập tên sổ:');
+    let idCard = prompt('Nhập số cmnd:');
+    let date = prompt('Nhập ngày:');
+    let money = prompt('Nhập số tiền:');
+    let soTietKiem = new SoTietKiem(id, type, name, idCard, date, money);
+    arr.push(soTietKiem);
+    alert('Bạn đã thêm thành công');
+    list(arr);
+}
+
+function deletee(){
+    let id = +prompt('Nhập mã sổ cần xóa:');
+    for (let i = 0; i <arr.length; i++) {
+        if (id === arr[i].getId()) {
+    let check = confirm('Bạn có chắc muốn xóa sổ ' + id + ' ?');
+    if (check) {
+                arr.splice(i, 1);
+                alert('Bạn đã xóa thành công');
+                list(arr);
+                return;
+            }
+        } else {
+            alert('Mã sổ không tồn tại');
+            return;
+        }
+    }
+}
+</script>
+</body>
+</html>

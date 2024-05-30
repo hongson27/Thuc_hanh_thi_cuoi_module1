@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let arr=[];
+    for (let i = 0; i <50; i++) {
+        let input = +prompt('Nhập giá trị phần tử '+ i + ' :');
+        arr.push(input);
+    }
+    document.write('Mảng bạn vừa nhập là: ' + arr);
+    let arr1 = [];
+    let count = true;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] !== 1) {
+            for (let j = 2; j <= Math.sqrt(arr[i]); j++) {
+                if (arr[i] % j === 0) {
+                    count = false;
+                    break;
+                }
+            }
+            if (count) {
+                arr1.push(arr[i]);
+            }
+            count = true;
+        }
+    }
+    document.write('<br>' + 'Mảng chứa số nguyên tố là: ' + arr1 );
+</script>
+</body>
+</html>
